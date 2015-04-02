@@ -80,6 +80,13 @@ static CGFloat kRotationMultiplier = 5.f;
     
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMotionBasedPan:)];
     [self.view addGestureRecognizer:tapGestureRecognizer];
+	
+	UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(hanldeSwipe:)];
+	swipeGesture.direction = UISwipeGestureRecognizerDirectionDown;
+	[self.view addGestureRecognizer:swipeGesture];
+	
+
+	
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,6 +99,21 @@ static CGFloat kRotationMultiplier = 5.f;
     [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
         [self calculateRotationBasedOnDeviceMotionRotationRate:motion];
     }];
+	
+	if ([self.delgate respondsToSelector:@selector(exitImagePanViewController)]) {
+		NSLog(@"Add caption");
+		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-20, self.view.frame.size.width, 20)];
+		label.textColor = [UIColor whiteColor];
+		label.shadowColor = [UIColor blackColor];
+		label.shadowOffset = CGSizeMake(1.f, 1.f);
+		[label setFont:[UIFont systemFontOfSize:12 weight:100]];
+		label.alpha = 0.5f;
+		label.text = @"swipe down to close";
+		label.textAlignment = NSTextAlignmentCenter;
+		
+		[self.view addSubview:label];
+	}
+
 }
 
 #pragma mark - Status Bar
@@ -254,4 +276,10 @@ static CGFloat kRotationMultiplier = 5.f;
     [scrollView setContentOffset:[self clampedContentOffsetForHorizontalOffset:scrollView.contentOffset.x] animated:YES];
 }
 
+#pragma mark - SwipeGesture
+- (void)hanldeSwipe:(id)sender {
+	if ([self.delgate respondsToSelector:@selector(exitImagePanViewController)]) {
+		[self.delgate exitImagePanViewController];
+	}
+}
 @end

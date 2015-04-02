@@ -7,7 +7,6 @@
 //
 
 #import "SCRootViewController.h"
-#import "SCImagePanViewController.h"
 
 @interface SCRootViewController ()
 @property (nonatomic, strong) SCImagePanViewController *imagePanViewController;
@@ -34,11 +33,17 @@
     
     UIImage *panoramaImage = [UIImage imageNamed:@"melbourne.jpg"];
     [self.imagePanViewController configureWithImage:panoramaImage];
+	self.imagePanViewController.delgate  = self;
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden
 {
     return self.imagePanViewController;
+}
+
+#pragma mark - SCImagePanViewDelegate
+-(void)exitImagePanViewController {
+	NSLog(@"Exit fired");
 }
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCImagePanViewController.h"
 
-@interface SCRootViewController : UIViewController
+@interface SCRootViewController : UIViewController <SCImagePanViewDelegate>
 
 @end

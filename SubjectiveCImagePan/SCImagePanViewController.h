@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 
+@protocol SCImagePanViewDelegate <NSObject>
+
+@required
+-(void)exitImagePanViewController;
+
+@end
+
 @interface SCImagePanViewController : UIViewController
 
 - (id)initWithMotionManager:(CMMotionManager *)motionManager;
 - (void)configureWithImage:(UIImage *)image;
+
+@property (nonatomic, weak) id<SCImagePanViewDelegate> delgate;
 
 @end
