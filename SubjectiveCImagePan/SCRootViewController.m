@@ -20,7 +20,9 @@
     
     CMMotionManager *motionManager = [[CMMotionManager alloc] init];
     self.imagePanViewController = [[SCImagePanViewController alloc] initWithMotionManager:motionManager];
-    
+    self.imagePanViewController.disablePinchZoom = NO; // set to YES to disable pinch/zoom
+
+
     [self.imagePanViewController willMoveToParentViewController:self];
     
     [self addChildViewController:self.imagePanViewController];
@@ -33,7 +35,7 @@
     
     UIImage *panoramaImage = [UIImage imageNamed:@"melbourne.jpg"];
     [self.imagePanViewController configureWithImage:panoramaImage];
-	self.imagePanViewController.delgate  = self;
+	self.imagePanViewController.delegate  = self;
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden

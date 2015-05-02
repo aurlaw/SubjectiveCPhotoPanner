@@ -20,7 +20,6 @@
 
 - (id)initWithMotionManager:(CMMotionManager *)motionManager;
 - (void)configureWithImage:(UIImage *)image;
-
-@property (nonatomic, weak) id<SCImagePanViewDelegate> delgate;
-
+@property (nonatomic, weak) id<SCImagePanViewDelegate> delegate;
+@property BOOL disablePinchZoom;
 @end

@@ -59,7 +59,12 @@ static CGFloat kRotationMultiplier = 5.f;
     self.panningScrollView.scrollEnabled = NO;
     self.panningScrollView.alwaysBounceVertical = NO;
     self.panningScrollView.maximumZoomScale = 2.f;
-    [self.panningScrollView.pinchGestureRecognizer addTarget:self action:@selector(pinchGestureRecognized:)];
+    
+    self.panningScrollView.pinchGestureRecognizer.enabled = !self.disablePinchZoom; // dsable manual pinch/zoom
+    self.panningScrollView.userInteractionEnabled = !self.disablePinchZoom; // dsable manual pinch/zoom
+    if (!self.disablePinchZoom) {
+        [self.panningScrollView.pinchGestureRecognizer addTarget:self action:@selector(pinchGestureRecognized:)];
+    }
     
     [self.view addSubview:self.panningScrollView];
     
@@ -78,9 +83,10 @@ static CGFloat kRotationMultiplier = 5.f;
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkUpdate:)];
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMotionBasedPan:)];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
-	
+    if (!self.disablePinchZoom) {
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMotionBasedPan:)];
+        [self.view addGestureRecognizer:tapGestureRecognizer];
+    }
 	UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(hanldeSwipe:)];
 	swipeGesture.direction = UISwipeGestureRecognizerDirectionDown;
 	[self.view addGestureRecognizer:swipeGesture];
@@ -100,8 +106,7 @@ static CGFloat kRotationMultiplier = 5.f;
         [self calculateRotationBasedOnDeviceMotionRotationRate:motion];
     }];
 	
-	if ([self.delgate respondsToSelector:@selector(exitImagePanViewController)]) {
-		NSLog(@"Add caption");
+	if ([self.delegate respondsToSelector:@selector(exitImagePanViewController)]) {
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-20, self.view.frame.size.width, 20)];
 		label.textColor = [UIColor whiteColor];
 		label.shadowColor = [UIColor blackColor];
@@ -211,7 +216,7 @@ static CGFloat kRotationMultiplier = 5.f;
     else
     {
         self.panningScrollView.zoomScale = 1.f;
-        self.panningScrollView.scrollEnabled = YES;
+        self.panningScrollView.scrollEnabled = !self.disablePinchZoom;
     }
 }
 
@@ -278,8 +283,8 @@ static CGFloat kRotationMultiplier = 5.f;
 
 #pragma mark - SwipeGesture
 - (void)hanldeSwipe:(id)sender {
-	if ([self.delgate respondsToSelector:@selector(exitImagePanViewController)]) {
-		[self.delgate exitImagePanViewController];
+	if ([self.delegate respondsToSelector:@selector(exitImagePanViewController)]) {
+		[self.delegate exitImagePanViewController];
 	}
 }
 @end
