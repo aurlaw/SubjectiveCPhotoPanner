@@ -214,6 +214,9 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Sam Page";
 				TargetAttributes = {
+					A87FEED518B0575300E53BD7 = {
+						DevelopmentTeam = T54JASTD4Z;
+					};
 					A87FEEF018B0575300E53BD7 = {
 						TestTargetID = A87FEED518B0575300E53BD7;
 					};
@@ -386,6 +389,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SubjectiveCImagePan/SubjectiveCImagePan-Prefix.pch";
 				INFOPLIST_FILE = "SubjectiveCImagePan/SubjectiveCImagePan-Info.plist";
@@ -399,6 +403,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SubjectiveCImagePan/SubjectiveCImagePan-Prefix.pch";
 				INFOPLIST_FILE = "SubjectiveCImagePan/SubjectiveCImagePan-Info.plist";
