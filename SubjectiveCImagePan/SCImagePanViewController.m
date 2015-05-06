@@ -111,7 +111,7 @@ static CGFloat kRotationMultiplier = 5.f;
 		label.textColor = [UIColor whiteColor];
 		label.shadowColor = [UIColor blackColor];
 		label.shadowOffset = CGSizeMake(1.f, 1.f);
-		[label setFont:[UIFont systemFontOfSize:12 weight:100]];
+		[label setFont:[UIFont boldSystemFontOfSize:12]];
 		label.alpha = 0.5f;
 		label.text = @"swipe down to close";
 		label.textAlignment = NSTextAlignmentCenter;
